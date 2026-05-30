@@ -14,6 +14,8 @@ export const NAV_LINKS = [
 export const SOCIAL_LINKS = {
   youtube: "https://youtube.com/@flyingwolfpack",
   instagram: "https://instagram.com/flyingwolfpack",
+  facebook: "https://facebook.com/flyingwolfpack",
+  email: "mailto:flyingwolfpack@gmail.com",
 };
 
 export const EUROPE_EPISODES = [
