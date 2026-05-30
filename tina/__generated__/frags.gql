@@ -1,0 +1,52 @@
+fragment JournalParts on Journal {
+  __typename
+  title
+  excerpt
+  date
+  category
+  readTime
+  image
+  body
+}
+
+fragment EpisodesParts on Episodes {
+  __typename
+  title
+  country
+  flag
+  episode
+  duration
+  description
+  image
+  youtubeId
+  body
+}
+
+fragment GearParts on Gear {
+  __typename
+  name
+  category
+  price
+  rating
+  summary
+  image
+  affiliateUrl
+}
+
+fragment DestinationsParts on Destinations {
+  __typename
+  name
+  flag
+  summary
+  image
+  episodeCount
+}
+
+fragment TravelHacksParts on TravelHacks {
+  __typename
+  title
+  category
+  readTime
+  image
+  body
+}
