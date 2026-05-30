@@ -42,3 +42,6 @@ next-env.d.ts
 
 .vercel
 .env.local
+
+# Tina admin — generated at build time by Vercel, don't commit
+/public/admin/

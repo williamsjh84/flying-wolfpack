@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "tinacms dev -c \"next dev\"",
-    "build": "next build",
-    "build:tina": "tinacms build --skip-cloud-checks",
+    "build": "tinacms build --skip-cloud-checks && next build",
     "start": "next start",
     "lint": "eslint"
   },
