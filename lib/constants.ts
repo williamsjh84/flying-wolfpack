@@ -6,6 +6,7 @@ export const SITE_DESCRIPTION =
 export const NAV_LINKS = [
   { label: "Destinations", href: "/destinations" },
   { label: "Europe Series", href: "/europe" },
+  { label: "UK Series", href: "/uk" },
   { label: "Travel Hacks", href: "/travel-hacks" },
   { label: "Gear", href: "/gear" },
   { label: "Journal", href: "/journal" },
