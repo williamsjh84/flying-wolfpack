@@ -152,6 +152,32 @@ export const EUROPE_EPISODES = [
       "https://images.unsplash.com/photo-1555993539-1732b0258235?w=800&h=450&fit=crop",
     episode: 11,
   },
+  {
+    slug: "belgium",
+    title: "Belgium",
+    country: "Belgium",
+    flag: "🇧🇪",
+    duration: "",
+    photoOnly: true,
+    description:
+      "Bruges by bike, waffles in Brussels, and a chocolate shop that nearly derailed the entire itinerary. Belgium in pictures.",
+    image:
+      "https://images.unsplash.com/photo-1491557345352-5929e343eb89?w=800&h=450&fit=crop",
+    episode: 12,
+  },
+  {
+    slug: "netherlands",
+    title: "Netherlands",
+    country: "Netherlands",
+    flag: "🇳🇱",
+    duration: "",
+    photoOnly: true,
+    description:
+      "Amsterdam canals, tulip fields, and the windmills our kids had been asking about since they read a picture book two years ago. Netherlands in pictures.",
+    image:
+      "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?w=800&h=450&fit=crop",
+    episode: 13,
+  },
 ];
 
 export const FEATURED_DESTINATIONS = [

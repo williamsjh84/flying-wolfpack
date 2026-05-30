@@ -134,24 +134,26 @@ export default async function EpisodePage({ params }: Props) {
         </div>
       </section>
 
-      {/* YouTube embed placeholder */}
-      <section className="bg-mist py-16">
-        <div className="mx-auto max-w-5xl px-6">
-          <div className="relative aspect-video bg-ink flex items-center justify-center">
-            <div className="text-center">
-              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-warm-white/10 backdrop-blur">
-                <svg viewBox="0 0 24 24" fill="white" className="h-7 w-7 ml-1" aria-hidden>
-                  <path d="M8 5v14l11-7z" />
-                </svg>
+      {/* YouTube embed — skip for photo-only episodes */}
+      {!ep.photoOnly && (
+        <section className="bg-mist py-16">
+          <div className="mx-auto max-w-5xl px-6">
+            <div className="relative aspect-video bg-ink flex items-center justify-center">
+              <div className="text-center">
+                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-warm-white/10 backdrop-blur">
+                  <svg viewBox="0 0 24 24" fill="white" className="h-7 w-7 ml-1" aria-hidden>
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+                <p className="font-sans text-sm text-warm-white/50">
+                  Episode {ep.episode}: {ep.title}
+                </p>
+                <p className="mt-1 font-sans text-xs text-warm-white/30">YouTube embed goes here</p>
               </div>
-              <p className="font-sans text-sm text-warm-white/50">
-                Episode {ep.episode}: {ep.title}
-              </p>
-              <p className="mt-1 font-sans text-xs text-warm-white/30">YouTube embed goes here</p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Prague-specific rich content */}
       {isPrague && (
@@ -288,8 +290,99 @@ export default async function EpisodePage({ params }: Props) {
         </>
       )}
 
-      {/* Non-Prague placeholder */}
-      {!isPrague && (
+      {/* Photo-only episodes (Belgium, Netherlands, etc.) */}
+      {!isPrague && ep.photoOnly && (
+        <>
+          {/* Story intro */}
+          <section className="bg-warm-white py-20">
+            <div className="mx-auto max-w-3xl px-6">
+              <p className="mb-3 font-sans text-xs tracking-[0.2em] text-earth uppercase">In pictures</p>
+              <h2 className="mb-6 font-serif text-4xl font-bold italic text-ink">
+                {ep.title} Through the Lens
+              </h2>
+              <p className="font-sans text-lg leading-relaxed text-ink/65">
+                {ep.slug === "belgium"
+                  ? "Belgium surprised us more than almost anywhere on the trip. Bruges felt like a city preserved in amber — canals, cobblestones, and medieval towers the kids actually wanted to climb. Brussels was louder, messier, and had the best food of the two."
+                  : "The Netherlands delivered on everything our kids had been promised — windmills, tulips, bikes everywhere, and canals you could actually boat on. Amsterdam was chaotic and wonderful. The countryside was impossibly peaceful."}
+              </p>
+            </div>
+          </section>
+
+          {/* Photo gallery — populated from uploads folder */}
+          <section className="bg-mist py-16">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+              <p className="mb-3 font-sans text-xs tracking-[0.2em] text-earth uppercase">Gallery</p>
+              <h2 className="mb-8 font-serif text-3xl font-bold italic text-ink">
+                {ep.title} in Frame
+              </h2>
+
+              {/* Upload placeholder grid — replace src with /uploads/europe/{slug}/photo.jpg */}
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                {[...Array(6)].map((_, i) => (
+                  <div
+                    key={i}
+                    className={`relative overflow-hidden bg-warm-white/80 border border-mist flex items-center justify-center ${
+                      i === 0 ? "sm:col-span-2 aspect-[16/9]" : "aspect-[4/3]"
+                    }`}
+                  >
+                    <div className="text-center px-4">
+                      <p className="font-sans text-xs text-ink/30 leading-relaxed">
+                        /uploads/europe/{ep.slug}/photo-{i + 1}.jpg
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <p className="mt-6 font-sans text-xs text-ink/40">
+                Drop your photos in{" "}
+                <code className="bg-warm-white px-1.5 py-0.5 text-ocean">
+                  public/uploads/europe/{ep.slug}/
+                </code>{" "}
+                and they&apos;ll appear here.
+              </p>
+            </div>
+          </section>
+
+          {/* Highlights */}
+          <section className="bg-ocean py-20">
+            <div className="mx-auto max-w-4xl px-6">
+              <p className="mb-3 font-sans text-xs tracking-[0.2em] text-gold uppercase">Highlights</p>
+              <h2 className="mb-8 font-serif text-3xl font-bold italic text-warm-white">
+                Don&apos;t Miss in {ep.title}
+              </h2>
+              <ul className="space-y-4">
+                {(ep.slug === "belgium"
+                  ? [
+                      "Bruges by bike — rent from the station, ride the full canal circuit",
+                      "Delirium Café in Brussels (for the adults — 3,000+ beers on the menu)",
+                      "The Atomium is genuinely worth it with kids, despite what the internet says",
+                      "Chocolate workshops — most shops in Bruges offer them, book ahead",
+                      "Ghent for a half-day if you have time — less crowded than Bruges, equally beautiful",
+                    ]
+                  : [
+                      "Keukenhof Gardens if your timing is right (late March–May) — genuinely unmissable",
+                      "Rent bikes in Amsterdam — the kids will remember it forever",
+                      "Zaanse Schans for windmills, 20 minutes from Amsterdam by train",
+                      "Stroopwafels fresh off the iron at the Albert Cuyp market",
+                      "Day trip to Haarlem — quieter than Amsterdam, just as beautiful",
+                    ]
+                ).map((tip, i) => (
+                  <li key={i} className="flex gap-4">
+                    <span className="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-gold/20 text-center font-sans text-xs font-medium leading-5 text-gold">
+                      {i + 1}
+                    </span>
+                    <p className="font-sans text-base leading-relaxed text-warm-white/75">{tip}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        </>
+      )}
+
+      {/* Standard non-video, non-photo-only placeholder */}
+      {!isPrague && !ep.photoOnly && (
         <section className="bg-warm-white py-24">
           <div className="mx-auto max-w-3xl px-6">
             <p className="font-sans text-lg leading-relaxed text-ink/60">
