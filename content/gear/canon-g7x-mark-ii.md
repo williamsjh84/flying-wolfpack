@@ -17,7 +17,7 @@ summary: |-
   ISO 12800, up to 8 fps Shooting
   Intelligent IS Image Stabilization
   Manual Control Ring, Time-Lapse Movie
-image: /public/uploads/Canon G7x.JPG
+image: /uploads/Canon G7x.JPG
 affiliateUrl: '#'
 ---
 
