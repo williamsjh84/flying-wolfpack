@@ -11,6 +11,7 @@ interface DestinationCardProps {
   summary: string;
   image: string;
   episodeCount?: number;
+  seriesLink?: string;
 }
 
 export default function DestinationCard({
@@ -20,7 +21,10 @@ export default function DestinationCard({
   summary,
   image,
   episodeCount,
+  seriesLink,
 }: DestinationCardProps) {
+  const href = seriesLink || `/destinations/${slug}`;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -28,7 +32,7 @@ export default function DestinationCard({
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      <Link href={`/destinations/${slug}`} className="group block">
+      <Link href={href} className="group block">
         {/* Image */}
         <div className="relative aspect-[4/3] overflow-hidden bg-mist">
           <Image
@@ -44,21 +48,19 @@ export default function DestinationCard({
           <div className="absolute bottom-4 left-4 right-4">
             <div className="flex items-center gap-2">
               <span className="text-2xl">{flag}</span>
-              <h3 className="font-serif text-2xl font-bold italic text-warm-white">
-                {name}
-              </h3>
+              <h3 className="font-serif text-2xl font-bold italic text-warm-white">{name}</h3>
             </div>
           </div>
         </div>
 
         {/* Summary */}
         <div className="mt-4 space-y-2">
-          <p className="font-sans text-sm leading-relaxed text-ink/60 line-clamp-2">
-            {summary}
-          </p>
+          <p className="font-sans text-sm leading-relaxed text-ink/60 line-clamp-2">{summary}</p>
           {episodeCount !== undefined && (
             <p className="font-sans text-xs tracking-widest text-earth uppercase">
-              {episodeCount > 0 ? `${episodeCount} episode${episodeCount !== 1 ? "s" : ""}` : "Coming soon"}
+              {episodeCount > 0
+                ? `${episodeCount} episode${episodeCount !== 1 ? "s" : ""}`
+                : "Coming soon"}
             </p>
           )}
         </div>

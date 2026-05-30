@@ -218,6 +218,36 @@ export const FEATURED_DESTINATIONS = [
     episodeCount: 1,
   },
   {
+    slug: "belgium",
+    name: "Belgium",
+    flag: "🇧🇪",
+    summary: "Bruges by bike, waffles in Brussels, and a chocolate shop that nearly derailed the entire itinerary.",
+    image:
+      "https://images.unsplash.com/photo-1491557345352-5929e343eb89?w=600&h=400&fit=crop",
+    episodeCount: 1,
+    seriesLink: "/europe/belgium",
+  },
+  {
+    slug: "netherlands",
+    name: "Netherlands",
+    flag: "🇳🇱",
+    summary: "Amsterdam canals, tulip fields, and the windmills our kids had been asking about for two years.",
+    image:
+      "https://images.unsplash.com/photo-1512470876302-972faa2aa9a4?w=600&h=400&fit=crop",
+    episodeCount: 1,
+    seriesLink: "/europe/netherlands",
+  },
+  {
+    slug: "united-kingdom",
+    name: "United Kingdom",
+    flag: "🇬🇧",
+    summary: "London, the Cotswolds, and Scotland — three very different corners of Britain explored as a family.",
+    image:
+      "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600&h=400&fit=crop",
+    episodeCount: 3,
+    seriesLink: "/uk",
+  },
+  {
     slug: "japan",
     name: "Japan",
     flag: "🇯🇵",
