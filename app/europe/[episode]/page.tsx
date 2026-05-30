@@ -6,19 +6,19 @@ import PageWrapper from "@/components/layout/PageWrapper";
 import EmailSignup from "@/components/sections/EmailSignup";
 import Badge from "@/components/ui/Badge";
 import Button from "@/components/ui/Button";
-import { EUROPE_EPISODES } from "@/lib/constants";
+import { getEpisodes, getEpisodeBySlug } from "@/lib/content";
 
 interface Props {
   params: Promise<{ episode: string }>;
 }
 
 export async function generateStaticParams() {
-  return EUROPE_EPISODES.map((ep) => ({ episode: ep.slug }));
+  return getEpisodes().map((ep: any) => ({ episode: ep.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { episode: slug } = await params;
-  const ep = EUROPE_EPISODES.find((e) => e.slug === slug);
+  const ep = getEpisodeBySlug(slug);
   if (!ep) return {};
   return {
     title: `${ep.title}, ${ep.country} — Ep. ${String(ep.episode).padStart(2, "0")}`,
@@ -88,12 +88,13 @@ const PRAGUE_CONTENT = {
 
 export default async function EpisodePage({ params }: Props) {
   const { episode: slug } = await params;
-  const ep = EUROPE_EPISODES.find((e) => e.slug === slug);
+  const ep = getEpisodeBySlug(slug);
   if (!ep) notFound();
 
+  const allEpisodes = getEpisodes();
   const isPrague = slug === "prague";
-  const nextEp = EUROPE_EPISODES.find((e) => e.episode === ep.episode + 1);
-  const prevEp = EUROPE_EPISODES.find((e) => e.episode === ep.episode - 1);
+  const nextEp = allEpisodes.find((e: any) => e.episode === ep.episode + 1);
+  const prevEp = allEpisodes.find((e: any) => e.episode === ep.episode - 1);
 
   return (
     <PageWrapper>
@@ -301,9 +302,7 @@ export default async function EpisodePage({ params }: Props) {
                 {ep.title} Through the Lens
               </h2>
               <p className="font-sans text-lg leading-relaxed text-ink/65">
-                {ep.slug === "belgium"
-                  ? "Belgium surprised us more than almost anywhere on the trip. Bruges felt like a city preserved in amber — canals, cobblestones, and medieval towers the kids actually wanted to climb. Brussels was louder, messier, and had the best food of the two."
-                  : "The Netherlands delivered on everything our kids had been promised — windmills, tulips, bikes everywhere, and canals you could actually boat on. Amsterdam was chaotic and wonderful. The countryside was impossibly peaceful."}
+                {ep.storyText || ep.description}
               </p>
             </div>
           </section>
@@ -352,22 +351,7 @@ export default async function EpisodePage({ params }: Props) {
                 Don&apos;t Miss in {ep.title}
               </h2>
               <ul className="space-y-4">
-                {(ep.slug === "belgium"
-                  ? [
-                      "Bruges by bike — rent from the station, ride the full canal circuit",
-                      "Delirium Café in Brussels (for the adults — 3,000+ beers on the menu)",
-                      "The Atomium is genuinely worth it with kids, despite what the internet says",
-                      "Chocolate workshops — most shops in Bruges offer them, book ahead",
-                      "Ghent for a half-day if you have time — less crowded than Bruges, equally beautiful",
-                    ]
-                  : [
-                      "Keukenhof Gardens if your timing is right (late March–May) — genuinely unmissable",
-                      "Rent bikes in Amsterdam — the kids will remember it forever",
-                      "Zaanse Schans for windmills, 20 minutes from Amsterdam by train",
-                      "Stroopwafels fresh off the iron at the Albert Cuyp market",
-                      "Day trip to Haarlem — quieter than Amsterdam, just as beautiful",
-                    ]
-                ).map((tip, i) => (
+                {(ep.highlights || []).map((tip: string, i: number) => (
                   <li key={i} className="flex gap-4">
                     <span className="mt-0.5 h-5 w-5 shrink-0 rounded-full bg-gold/20 text-center font-sans text-xs font-medium leading-5 text-gold">
                       {i + 1}

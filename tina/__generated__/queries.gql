@@ -1,5 +1,5 @@
-query journal($relativePath: String!) {
-  journal(relativePath: $relativePath) {
+query pages($relativePath: String!) {
+  pages(relativePath: $relativePath) {
     ... on Document {
       _sys {
         filename
@@ -12,12 +12,12 @@ query journal($relativePath: String!) {
       }
       id
     }
-    ...JournalParts
+    ...PagesParts
   }
 }
 
-query journalConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: JournalFilter) {
-  journalConnection(
+query pagesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PagesFilter) {
+  pagesConnection(
     before: $before
     after: $after
     first: $first
@@ -47,7 +47,62 @@ query journalConnection($before: String, $after: String, $first: Float, $last: F
           }
           id
         }
-        ...JournalParts
+        ...PagesParts
+      }
+    }
+  }
+}
+
+query settings($relativePath: String!) {
+  settings(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...SettingsParts
+  }
+}
+
+query settingsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: SettingsFilter) {
+  settingsConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...SettingsParts
       }
     }
   }
@@ -213,6 +268,61 @@ query destinationsConnection($before: String, $after: String, $first: Float, $la
           id
         }
         ...DestinationsParts
+      }
+    }
+  }
+}
+
+query journal($relativePath: String!) {
+  journal(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...JournalParts
+  }
+}
+
+query journalConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: JournalFilter) {
+  journalConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...JournalParts
       }
     }
   }

@@ -54,23 +54,29 @@ type Query {
   collections: [Collection!]!
   node(id: String): Node!
   document(collection: String, relativePath: String): DocumentNode!
-  journal(relativePath: String): Journal!
-  journalConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: JournalFilter): JournalConnection!
+  pages(relativePath: String): Pages!
+  pagesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PagesFilter): PagesConnection!
+  settings(relativePath: String): Settings!
+  settingsConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: SettingsFilter): SettingsConnection!
   episodes(relativePath: String): Episodes!
   episodesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: EpisodesFilter): EpisodesConnection!
   gear(relativePath: String): Gear!
   gearConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: GearFilter): GearConnection!
   destinations(relativePath: String): Destinations!
   destinationsConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: DestinationsFilter): DestinationsConnection!
+  journal(relativePath: String): Journal!
+  journalConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: JournalFilter): JournalConnection!
   travelHacks(relativePath: String): TravelHacks!
   travelHacksConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: TravelHacksFilter): TravelHacksConnection!
 }
 
 input DocumentFilter {
-  journal: JournalFilter
+  pages: PagesFilter
+  settings: SettingsFilter
   episodes: EpisodesFilter
   gear: GearFilter
   destinations: DestinationsFilter
+  journal: JournalFilter
   travelHacks: TravelHacksFilter
 }
 
@@ -97,16 +103,60 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Journal | Episodes | Gear | Destinations | TravelHacks | Folder
+union DocumentNode = Pages | Settings | Episodes | Gear | Destinations | Journal | TravelHacks | Folder
 
-type Journal implements Node & Document {
-  title: String!
-  excerpt: String
-  date: String
-  category: String
-  readTime: String
-  image: String
-  body: JSON
+type Pages implements Node & Document {
+  heroEyebrow: String
+  heroHeadline: String
+  heroSubheadline: String
+  heroCtaLabel: String
+  heroCtaHref: String
+  heroImage: String
+  currentJourneyEyebrow: String
+  currentJourneyHeadline: String
+  currentJourneyBody: String
+  currentJourneyBody2: String
+  currentJourneyCtaLabel: String
+  currentJourneyCtaHref: String
+  currentJourneyImage: String
+  episodesEyebrow: String
+  episodesHeadline: String
+  destinationsEyebrow: String
+  destinationsHeadline: String
+  europeEyebrow: String
+  europeHeadline: String
+  europeSubtext: String
+  europeCtaLabel: String
+  europeCtaHref: String
+  hacksEyebrow: String
+  hacksHeadline: String
+  hacksSubtext: String
+  emailHeadline: String
+  emailSubheadline: String
+  journalEyebrow: String
+  journalHeadline: String
+  originEyebrow: String
+  originHeadline: String
+  originParagraph1: String
+  originParagraph2: String
+  originParagraph3: String
+  originParagraph4: String
+  familyEyebrow: String
+  familyHeadline: String
+  familyImage: String
+  dadBio: String
+  momBio: String
+  olderKidBio: String
+  youngerKidBio: String
+  approachEyebrow: String
+  approachHeadline: String
+  approachBody: String
+  overviewEyebrow: String
+  overviewHeadline: String
+  overviewParagraph1: String
+  overviewParagraph2: String
+  overviewParagraph3: String
+  episodesSubtext: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -119,14 +169,6 @@ input StringFilter {
   in: [String]
 }
 
-input DatetimeFilter {
-  after: String
-  before: String
-  eq: String
-  exists: Boolean
-  in: [String]
-}
-
 input ImageFilter {
   startsWith: String
   eq: String
@@ -134,41 +176,118 @@ input ImageFilter {
   in: [String]
 }
 
-input RichTextFilter {
-  startsWith: String
-  eq: String
-  exists: Boolean
+input PagesFilter {
+  heroEyebrow: StringFilter
+  heroHeadline: StringFilter
+  heroSubheadline: StringFilter
+  heroCtaLabel: StringFilter
+  heroCtaHref: StringFilter
+  heroImage: ImageFilter
+  currentJourneyEyebrow: StringFilter
+  currentJourneyHeadline: StringFilter
+  currentJourneyBody: StringFilter
+  currentJourneyBody2: StringFilter
+  currentJourneyCtaLabel: StringFilter
+  currentJourneyCtaHref: StringFilter
+  currentJourneyImage: ImageFilter
+  episodesEyebrow: StringFilter
+  episodesHeadline: StringFilter
+  destinationsEyebrow: StringFilter
+  destinationsHeadline: StringFilter
+  europeEyebrow: StringFilter
+  europeHeadline: StringFilter
+  europeSubtext: StringFilter
+  europeCtaLabel: StringFilter
+  europeCtaHref: StringFilter
+  hacksEyebrow: StringFilter
+  hacksHeadline: StringFilter
+  hacksSubtext: StringFilter
+  emailHeadline: StringFilter
+  emailSubheadline: StringFilter
+  journalEyebrow: StringFilter
+  journalHeadline: StringFilter
+  originEyebrow: StringFilter
+  originHeadline: StringFilter
+  originParagraph1: StringFilter
+  originParagraph2: StringFilter
+  originParagraph3: StringFilter
+  originParagraph4: StringFilter
+  familyEyebrow: StringFilter
+  familyHeadline: StringFilter
+  familyImage: ImageFilter
+  dadBio: StringFilter
+  momBio: StringFilter
+  olderKidBio: StringFilter
+  youngerKidBio: StringFilter
+  approachEyebrow: StringFilter
+  approachHeadline: StringFilter
+  approachBody: StringFilter
+  overviewEyebrow: StringFilter
+  overviewHeadline: StringFilter
+  overviewParagraph1: StringFilter
+  overviewParagraph2: StringFilter
+  overviewParagraph3: StringFilter
+  episodesSubtext: StringFilter
 }
 
-input JournalFilter {
-  title: StringFilter
-  excerpt: StringFilter
-  date: DatetimeFilter
-  category: StringFilter
-  readTime: StringFilter
-  image: ImageFilter
-  body: RichTextFilter
-}
-
-type JournalConnectionEdges {
+type PagesConnectionEdges {
   cursor: String!
-  node: Journal
+  node: Pages
 }
 
-type JournalConnection implements Connection {
+type PagesConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
-  edges: [JournalConnectionEdges]
+  edges: [PagesConnectionEdges]
+}
+
+type Settings implements Node & Document {
+  siteName: String
+  siteTagline: String
+  youtube: String
+  instagram: String
+  facebook: String
+  email: String
+  footerCopyright: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input SettingsFilter {
+  siteName: StringFilter
+  siteTagline: StringFilter
+  youtube: StringFilter
+  instagram: StringFilter
+  facebook: StringFilter
+  email: StringFilter
+  footerCopyright: StringFilter
+}
+
+type SettingsConnectionEdges {
+  cursor: String!
+  node: Settings
+}
+
+type SettingsConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [SettingsConnectionEdges]
 }
 
 type Episodes implements Node & Document {
   title: String!
   country: String
   flag: String
+  series: String
   episode: Float
   duration: String
-  description: String
   image: String
+  heroImage: String
+  description: String
+  storyText: String
+  comingSoonText: String
+  highlights: [String]
   youtubeId: String
   body: JSON
   id: ID!
@@ -186,14 +305,25 @@ input NumberFilter {
   in: [Float]
 }
 
+input RichTextFilter {
+  startsWith: String
+  eq: String
+  exists: Boolean
+}
+
 input EpisodesFilter {
   title: StringFilter
   country: StringFilter
   flag: StringFilter
+  series: StringFilter
   episode: NumberFilter
   duration: StringFilter
-  description: StringFilter
   image: ImageFilter
+  heroImage: ImageFilter
+  description: StringFilter
+  storyText: StringFilter
+  comingSoonText: StringFilter
+  highlights: StringFilter
   youtubeId: StringFilter
   body: RichTextFilter
 }
@@ -245,10 +375,12 @@ type GearConnection implements Connection {
 
 type Destinations implements Node & Document {
   name: String!
+  slug: String
   flag: String
   summary: String
   image: String
   episodeCount: Float
+  seriesLink: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -256,10 +388,12 @@ type Destinations implements Node & Document {
 
 input DestinationsFilter {
   name: StringFilter
+  slug: StringFilter
   flag: StringFilter
   summary: StringFilter
   image: ImageFilter
   episodeCount: NumberFilter
+  seriesLink: StringFilter
 }
 
 type DestinationsConnectionEdges {
@@ -271,6 +405,48 @@ type DestinationsConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
   edges: [DestinationsConnectionEdges]
+}
+
+type Journal implements Node & Document {
+  title: String!
+  excerpt: String
+  date: String
+  category: String
+  readTime: String
+  image: String
+  body: JSON
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input DatetimeFilter {
+  after: String
+  before: String
+  eq: String
+  exists: Boolean
+  in: [String]
+}
+
+input JournalFilter {
+  title: StringFilter
+  excerpt: StringFilter
+  date: DatetimeFilter
+  category: StringFilter
+  readTime: StringFilter
+  image: ImageFilter
+  body: RichTextFilter
+}
+
+type JournalConnectionEdges {
+  cursor: String!
+  node: Journal
+}
+
+type JournalConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [JournalConnectionEdges]
 }
 
 type TravelHacks implements Node & Document {
@@ -309,53 +485,120 @@ type Mutation {
   deleteDocument(collection: String, relativePath: String!): DocumentNode!
   createDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
   createFolder(collection: String, relativePath: String!): DocumentNode!
-  updateJournal(relativePath: String!, params: JournalMutation!): Journal!
-  createJournal(relativePath: String!, params: JournalMutation!): Journal!
+  updatePages(relativePath: String!, params: PagesMutation!): Pages!
+  createPages(relativePath: String!, params: PagesMutation!): Pages!
+  updateSettings(relativePath: String!, params: SettingsMutation!): Settings!
+  createSettings(relativePath: String!, params: SettingsMutation!): Settings!
   updateEpisodes(relativePath: String!, params: EpisodesMutation!): Episodes!
   createEpisodes(relativePath: String!, params: EpisodesMutation!): Episodes!
   updateGear(relativePath: String!, params: GearMutation!): Gear!
   createGear(relativePath: String!, params: GearMutation!): Gear!
   updateDestinations(relativePath: String!, params: DestinationsMutation!): Destinations!
   createDestinations(relativePath: String!, params: DestinationsMutation!): Destinations!
+  updateJournal(relativePath: String!, params: JournalMutation!): Journal!
+  createJournal(relativePath: String!, params: JournalMutation!): Journal!
   updateTravelHacks(relativePath: String!, params: TravelHacksMutation!): TravelHacks!
   createTravelHacks(relativePath: String!, params: TravelHacksMutation!): TravelHacks!
 }
 
 input DocumentUpdateMutation {
-  journal: JournalMutation
+  pages: PagesMutation
+  settings: SettingsMutation
   episodes: EpisodesMutation
   gear: GearMutation
   destinations: DestinationsMutation
+  journal: JournalMutation
   travelHacks: TravelHacksMutation
   relativePath: String
 }
 
 input DocumentMutation {
-  journal: JournalMutation
+  pages: PagesMutation
+  settings: SettingsMutation
   episodes: EpisodesMutation
   gear: GearMutation
   destinations: DestinationsMutation
+  journal: JournalMutation
   travelHacks: TravelHacksMutation
 }
 
-input JournalMutation {
-  title: String
-  excerpt: String
-  date: String
-  category: String
-  readTime: String
-  image: String
-  body: JSON
+input PagesMutation {
+  heroEyebrow: String
+  heroHeadline: String
+  heroSubheadline: String
+  heroCtaLabel: String
+  heroCtaHref: String
+  heroImage: String
+  currentJourneyEyebrow: String
+  currentJourneyHeadline: String
+  currentJourneyBody: String
+  currentJourneyBody2: String
+  currentJourneyCtaLabel: String
+  currentJourneyCtaHref: String
+  currentJourneyImage: String
+  episodesEyebrow: String
+  episodesHeadline: String
+  destinationsEyebrow: String
+  destinationsHeadline: String
+  europeEyebrow: String
+  europeHeadline: String
+  europeSubtext: String
+  europeCtaLabel: String
+  europeCtaHref: String
+  hacksEyebrow: String
+  hacksHeadline: String
+  hacksSubtext: String
+  emailHeadline: String
+  emailSubheadline: String
+  journalEyebrow: String
+  journalHeadline: String
+  originEyebrow: String
+  originHeadline: String
+  originParagraph1: String
+  originParagraph2: String
+  originParagraph3: String
+  originParagraph4: String
+  familyEyebrow: String
+  familyHeadline: String
+  familyImage: String
+  dadBio: String
+  momBio: String
+  olderKidBio: String
+  youngerKidBio: String
+  approachEyebrow: String
+  approachHeadline: String
+  approachBody: String
+  overviewEyebrow: String
+  overviewHeadline: String
+  overviewParagraph1: String
+  overviewParagraph2: String
+  overviewParagraph3: String
+  episodesSubtext: String
+}
+
+input SettingsMutation {
+  siteName: String
+  siteTagline: String
+  youtube: String
+  instagram: String
+  facebook: String
+  email: String
+  footerCopyright: String
 }
 
 input EpisodesMutation {
   title: String
   country: String
   flag: String
+  series: String
   episode: Float
   duration: String
-  description: String
   image: String
+  heroImage: String
+  description: String
+  storyText: String
+  comingSoonText: String
+  highlights: [String]
   youtubeId: String
   body: JSON
 }
@@ -372,10 +615,22 @@ input GearMutation {
 
 input DestinationsMutation {
   name: String
+  slug: String
   flag: String
   summary: String
   image: String
   episodeCount: Float
+  seriesLink: String
+}
+
+input JournalMutation {
+  title: String
+  excerpt: String
+  date: String
+  category: String
+  readTime: String
+  image: String
+  body: JSON
 }
 
 input TravelHacksMutation {

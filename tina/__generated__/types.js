@@ -5,16 +5,72 @@ export function gql(strings, ...args) {
   });
   return str;
 }
-export const JournalPartsFragmentDoc = gql`
-    fragment JournalParts on Journal {
+export const PagesPartsFragmentDoc = gql`
+    fragment PagesParts on Pages {
   __typename
-  title
-  excerpt
-  date
-  category
-  readTime
-  image
-  body
+  heroEyebrow
+  heroHeadline
+  heroSubheadline
+  heroCtaLabel
+  heroCtaHref
+  heroImage
+  currentJourneyEyebrow
+  currentJourneyHeadline
+  currentJourneyBody
+  currentJourneyBody2
+  currentJourneyCtaLabel
+  currentJourneyCtaHref
+  currentJourneyImage
+  episodesEyebrow
+  episodesHeadline
+  destinationsEyebrow
+  destinationsHeadline
+  europeEyebrow
+  europeHeadline
+  europeSubtext
+  europeCtaLabel
+  europeCtaHref
+  hacksEyebrow
+  hacksHeadline
+  hacksSubtext
+  emailHeadline
+  emailSubheadline
+  journalEyebrow
+  journalHeadline
+  originEyebrow
+  originHeadline
+  originParagraph1
+  originParagraph2
+  originParagraph3
+  originParagraph4
+  familyEyebrow
+  familyHeadline
+  familyImage
+  dadBio
+  momBio
+  olderKidBio
+  youngerKidBio
+  approachEyebrow
+  approachHeadline
+  approachBody
+  overviewEyebrow
+  overviewHeadline
+  overviewParagraph1
+  overviewParagraph2
+  overviewParagraph3
+  episodesSubtext
+}
+    `;
+export const SettingsPartsFragmentDoc = gql`
+    fragment SettingsParts on Settings {
+  __typename
+  siteName
+  siteTagline
+  youtube
+  instagram
+  facebook
+  email
+  footerCopyright
 }
     `;
 export const EpisodesPartsFragmentDoc = gql`
@@ -23,10 +79,15 @@ export const EpisodesPartsFragmentDoc = gql`
   title
   country
   flag
+  series
   episode
   duration
-  description
   image
+  heroImage
+  description
+  storyText
+  comingSoonText
+  highlights
   youtubeId
   body
 }
@@ -47,10 +108,24 @@ export const DestinationsPartsFragmentDoc = gql`
     fragment DestinationsParts on Destinations {
   __typename
   name
+  slug
   flag
   summary
   image
   episodeCount
+  seriesLink
+}
+    `;
+export const JournalPartsFragmentDoc = gql`
+    fragment JournalParts on Journal {
+  __typename
+  title
+  excerpt
+  date
+  category
+  readTime
+  image
+  body
 }
     `;
 export const TravelHacksPartsFragmentDoc = gql`
@@ -63,9 +138,9 @@ export const TravelHacksPartsFragmentDoc = gql`
   body
 }
     `;
-export const JournalDocument = gql`
-    query journal($relativePath: String!) {
-  journal(relativePath: $relativePath) {
+export const PagesDocument = gql`
+    query pages($relativePath: String!) {
+  pages(relativePath: $relativePath) {
     ... on Document {
       _sys {
         filename
@@ -78,13 +153,13 @@ export const JournalDocument = gql`
       }
       id
     }
-    ...JournalParts
+    ...PagesParts
   }
 }
-    ${JournalPartsFragmentDoc}`;
-export const JournalConnectionDocument = gql`
-    query journalConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: JournalFilter) {
-  journalConnection(
+    ${PagesPartsFragmentDoc}`;
+export const PagesConnectionDocument = gql`
+    query pagesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PagesFilter) {
+  pagesConnection(
     before: $before
     after: $after
     first: $first
@@ -114,12 +189,69 @@ export const JournalConnectionDocument = gql`
           }
           id
         }
-        ...JournalParts
+        ...PagesParts
       }
     }
   }
 }
-    ${JournalPartsFragmentDoc}`;
+    ${PagesPartsFragmentDoc}`;
+export const SettingsDocument = gql`
+    query settings($relativePath: String!) {
+  settings(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...SettingsParts
+  }
+}
+    ${SettingsPartsFragmentDoc}`;
+export const SettingsConnectionDocument = gql`
+    query settingsConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: SettingsFilter) {
+  settingsConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...SettingsParts
+      }
+    }
+  }
+}
+    ${SettingsPartsFragmentDoc}`;
 export const EpisodesDocument = gql`
     query episodes($relativePath: String!) {
   episodes(relativePath: $relativePath) {
@@ -291,6 +423,63 @@ export const DestinationsConnectionDocument = gql`
   }
 }
     ${DestinationsPartsFragmentDoc}`;
+export const JournalDocument = gql`
+    query journal($relativePath: String!) {
+  journal(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...JournalParts
+  }
+}
+    ${JournalPartsFragmentDoc}`;
+export const JournalConnectionDocument = gql`
+    query journalConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: JournalFilter) {
+  journalConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...JournalParts
+      }
+    }
+  }
+}
+    ${JournalPartsFragmentDoc}`;
 export const TravelHacksDocument = gql`
     query travelHacks($relativePath: String!) {
   travelHacks(relativePath: $relativePath) {
@@ -350,11 +539,17 @@ export const TravelHacksConnectionDocument = gql`
     ${TravelHacksPartsFragmentDoc}`;
 export function getSdk(requester) {
   return {
-    journal(variables, options) {
-      return requester(JournalDocument, variables, options);
+    pages(variables, options) {
+      return requester(PagesDocument, variables, options);
     },
-    journalConnection(variables, options) {
-      return requester(JournalConnectionDocument, variables, options);
+    pagesConnection(variables, options) {
+      return requester(PagesConnectionDocument, variables, options);
+    },
+    settings(variables, options) {
+      return requester(SettingsDocument, variables, options);
+    },
+    settingsConnection(variables, options) {
+      return requester(SettingsConnectionDocument, variables, options);
     },
     episodes(variables, options) {
       return requester(EpisodesDocument, variables, options);
@@ -373,6 +568,12 @@ export function getSdk(requester) {
     },
     destinationsConnection(variables, options) {
       return requester(DestinationsConnectionDocument, variables, options);
+    },
+    journal(variables, options) {
+      return requester(JournalDocument, variables, options);
+    },
+    journalConnection(variables, options) {
+      return requester(JournalConnectionDocument, variables, options);
     },
     travelHacks(variables, options) {
       return requester(TravelHacksDocument, variables, options);

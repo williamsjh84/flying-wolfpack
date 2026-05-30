@@ -1,12 +1,67 @@
-fragment JournalParts on Journal {
+fragment PagesParts on Pages {
   __typename
-  title
-  excerpt
-  date
-  category
-  readTime
-  image
-  body
+  heroEyebrow
+  heroHeadline
+  heroSubheadline
+  heroCtaLabel
+  heroCtaHref
+  heroImage
+  currentJourneyEyebrow
+  currentJourneyHeadline
+  currentJourneyBody
+  currentJourneyBody2
+  currentJourneyCtaLabel
+  currentJourneyCtaHref
+  currentJourneyImage
+  episodesEyebrow
+  episodesHeadline
+  destinationsEyebrow
+  destinationsHeadline
+  europeEyebrow
+  europeHeadline
+  europeSubtext
+  europeCtaLabel
+  europeCtaHref
+  hacksEyebrow
+  hacksHeadline
+  hacksSubtext
+  emailHeadline
+  emailSubheadline
+  journalEyebrow
+  journalHeadline
+  originEyebrow
+  originHeadline
+  originParagraph1
+  originParagraph2
+  originParagraph3
+  originParagraph4
+  familyEyebrow
+  familyHeadline
+  familyImage
+  dadBio
+  momBio
+  olderKidBio
+  youngerKidBio
+  approachEyebrow
+  approachHeadline
+  approachBody
+  overviewEyebrow
+  overviewHeadline
+  overviewParagraph1
+  overviewParagraph2
+  overviewParagraph3
+  episodesSubtext
+}
+
+fragment SettingsParts on Settings {
+  __typename
+  siteName
+  siteTagline
+  youtube
+  instagram
+  facebook
+  email
+  footerCopyright
 }
 
 fragment EpisodesParts on Episodes {
@@ -14,10 +69,15 @@ fragment EpisodesParts on Episodes {
   title
   country
   flag
+  series
   episode
   duration
-  description
   image
+  heroImage
+  description
+  storyText
+  comingSoonText
+  highlights
   youtubeId
   body
 }
@@ -36,10 +96,23 @@ fragment GearParts on Gear {
 fragment DestinationsParts on Destinations {
   __typename
   name
+  slug
   flag
   summary
   image
   episodeCount
+  seriesLink
+}
+
+fragment JournalParts on Journal {
+  __typename
+  title
+  excerpt
+  date
+  category
+  readTime
+  image
+  body
 }
 
 fragment TravelHacksParts on TravelHacks {

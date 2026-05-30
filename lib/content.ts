@@ -4,7 +4,7 @@ import matter from "gray-matter";
 
 const contentDir = path.join(process.cwd(), "content");
 
-function readMdFiles(folder: string) {
+function readDir(folder: string) {
   const dir = path.join(contentDir, folder);
   if (!fs.existsSync(dir)) return [];
   return fs
@@ -18,26 +18,67 @@ function readMdFiles(folder: string) {
     });
 }
 
-export function getGearItems() {
-  const items = readMdFiles("gear");
-  return items.sort((a: any, b: any) => (a.name > b.name ? 1 : -1));
+function readFile(filePath: string) {
+  const full = path.join(contentDir, filePath);
+  if (!fs.existsSync(full)) return null;
+  const { data, content } = matter(fs.readFileSync(full, "utf-8"));
+  return { ...data, body: content };
 }
 
-export function getEpisodes(series?: string) {
-  const items = readMdFiles("episodes");
-  const filtered = series ? items.filter((e: any) => e.series === series || !series) : items;
+// ── Pages ──────────────────────────────────────────────────────
+export function getPage(slug: string): any {
+  return readFile(`pages/${slug}.md`) || {};
+}
+
+// ── Site Settings ──────────────────────────────────────────────
+export function getSiteSettings(): any {
+  return readFile("settings/site.md") || {};
+}
+
+// ── Episodes ───────────────────────────────────────────────────
+export function getEpisodes(series?: string): any[] {
+  const all = readDir("episodes");
+  const filtered = series ? all.filter((e: any) => e.series === series) : all;
   return filtered.sort((a: any, b: any) => (a.episode ?? 0) - (b.episode ?? 0));
 }
 
-export function getJournalPosts() {
-  const items = readMdFiles("journal");
-  return items.sort((a: any, b: any) => (a.date < b.date ? 1 : -1));
+export function getEpisodeBySlug(slug: string): any {
+  return readFile(`episodes/${slug}.mdx`) || readFile(`episodes/${slug}.md`) || null;
 }
 
-export function getTravelHacks() {
-  return readMdFiles("travel-hacks");
+// ── Gear ───────────────────────────────────────────────────────
+export function getGearItems(): any[] {
+  return readDir("gear");
 }
 
-export function getDestinations() {
-  return readMdFiles("destinations");
+// ── Destinations ───────────────────────────────────────────────
+export function getDestinations(): any[] {
+  const order = [
+    "italy","greece","poland","czech-republic","belgium",
+    "netherlands","united-kingdom","japan","portugal",
+  ];
+  const all = readDir("destinations");
+  return order
+    .map((slug) => all.find((d: any) => d.slug === slug || d.slug === slug))
+    .filter(Boolean) as any[];
+}
+
+// ── Journal ────────────────────────────────────────────────────
+export function getJournalPosts(): any[] {
+  return readDir("journal").sort((a: any, b: any) =>
+    a.date < b.date ? 1 : -1
+  );
+}
+
+export function getJournalPostBySlug(slug: string): any {
+  return readFile(`journal/${slug}.mdx`) || readFile(`journal/${slug}.md`) || null;
+}
+
+// ── Travel Hacks ───────────────────────────────────────────────
+export function getTravelHacks(): any[] {
+  return readDir("travel-hacks");
+}
+
+export function getTravelHackBySlug(slug: string): any {
+  return readFile(`travel-hacks/${slug}.mdx`) || readFile(`travel-hacks/${slug}.md`) || null;
 }
