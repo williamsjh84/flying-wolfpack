@@ -72,7 +72,7 @@ const GEAR_ITEMS = [
     price: "$519",
     rating: "5/5",
     summary: "Our secret weapon for smooth, cinematic footage without a gimbal setup. The 1-inch sensor is overkill in the best way — we use this for 80% of our walking shots.",
-    image: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/commons/c/c2/DJI_Osmo_Pocket.jpg",
     affiliateUrl: "#",
   },
   {
@@ -81,7 +81,7 @@ const GEAR_ITEMS = [
     price: "$65",
     rating: "5/5",
     summary: "We shoot a lot of footage. A lot. The SanDisk Extreme handles 4K video without breaking a sweat and we've never had a card failure — knock on wood.",
-    image: "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?w=600&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/commons/f/f4/Sandisk_Extreme_SD-Card.jpg",
     affiliateUrl: "#",
   },
   {
@@ -90,7 +90,7 @@ const GEAR_ITEMS = [
     price: "Used ~$80",
     rating: "4/5",
     summary: "Yes, it's old. No, we won't replace it. Strapped to the kids' helmets in Greece, dunked in the Adriatic, dragged through airport security 40+ times — still going. Sometimes durability beats specs.",
-    image: "https://images.unsplash.com/photo-1564466809058-bf4114d55352?w=600&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/commons/2/2f/GoPro_Hero_4_Black.jpg",
     affiliateUrl: "#",
   },
   {
@@ -99,7 +99,7 @@ const GEAR_ITEMS = [
     price: "$629",
     rating: "4/5",
     summary: "The flip screen sold us. Vlogging with kids requires holding the camera at weird angles in cramped spaces — the G7X handles it all with a form factor that doesn't scream 'tourist'.",
-    image: "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=600&h=400&fit=crop",
+    image: "https://upload.wikimedia.org/wikipedia/commons/6/64/Canon_Powershot_G7_X.jpg",
     affiliateUrl: "#",
   },
 ];
