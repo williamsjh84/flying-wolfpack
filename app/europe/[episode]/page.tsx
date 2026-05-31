@@ -79,6 +79,17 @@ export default async function EpisodePage({ params }: Props) {
         </div>
       </section>
 
+      {/* Episode Notes */}
+      {ep.body && ep.body.trim() && (
+        <section className="bg-warm-white py-16">
+          <div className="mx-auto max-w-3xl px-6 space-y-5">
+            {ep.body.trim().split("\n\n").filter(Boolean).map((para: string, i: number) => (
+              <p key={i} className="font-sans text-lg leading-relaxed text-ink/65">{para}</p>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* YouTube embed */}
       {!ep.photoOnly && (
         <section className="bg-mist py-16">
