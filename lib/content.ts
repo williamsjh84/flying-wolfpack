@@ -37,13 +37,27 @@ export function getSiteSettings(): any {
 
 // ── Episodes ───────────────────────────────────────────────────
 export function getEpisodes(series?: string): any[] {
-  const all = readDir("episodes");
-  const filtered = series ? all.filter((e: any) => e.series === series) : all;
-  return filtered.sort((a: any, b: any) => (a.episode ?? 0) - (b.episode ?? 0));
+  if (series) {
+    return readDir(`episodes/${series}`).sort(
+      (a: any, b: any) => (a.episode ?? 0) - (b.episode ?? 0)
+    );
+  }
+  const europe = readDir("episodes/europe");
+  const uk = readDir("episodes/uk");
+  return [...europe, ...uk].sort((a: any, b: any) => (a.episode ?? 0) - (b.episode ?? 0));
 }
 
-export function getEpisodeBySlug(slug: string): any {
-  return readFile(`episodes/${slug}.mdx`) || readFile(`episodes/${slug}.md`) || null;
+export function getEpisodeBySlug(slug: string, series?: string): any {
+  if (series) {
+    return readFile(`episodes/${series}/${slug}.mdx`) || readFile(`episodes/${series}/${slug}.md`) || null;
+  }
+  return (
+    readFile(`episodes/europe/${slug}.mdx`) ||
+    readFile(`episodes/europe/${slug}.md`) ||
+    readFile(`episodes/uk/${slug}.mdx`) ||
+    readFile(`episodes/uk/${slug}.md`) ||
+    null
+  );
 }
 
 // ── Gear ───────────────────────────────────────────────────────

@@ -64,12 +64,11 @@ fragment SettingsParts on Settings {
   footerCopyright
 }
 
-fragment EpisodesParts on Episodes {
+fragment EuropeEpisodesParts on EuropeEpisodes {
   __typename
   title
   country
   flag
-  series
   episode
   duration
   image
@@ -94,6 +93,22 @@ fragment EpisodesParts on Episodes {
     perDay
   }
   photos
+  youtubeId
+  body
+}
+
+fragment UkEpisodesParts on UkEpisodes {
+  __typename
+  title
+  country
+  flag
+  episode
+  duration
+  image
+  heroImage
+  description
+  comingSoonText
+  highlights
   youtubeId
   body
 }

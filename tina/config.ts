@@ -101,17 +101,16 @@ export default defineConfig({
         ],
       },
 
-      // ── Episodes ───────────────────────────────────────────────
+      // ── Europe Episodes ────────────────────────────────────────
       {
-        name: "episodes",
-        label: "Episodes",
-        path: "content/episodes",
+        name: "europeEpisodes",
+        label: "Europe Episodes",
+        path: "content/episodes/europe",
         format: "mdx",
         fields: [
           { type: "string", name: "title", label: "City / Title", isTitle: true, required: true },
           { type: "string", name: "country", label: "Country" },
           { type: "string", name: "flag", label: "Flag Emoji" },
-          { type: "string", name: "series", label: "Series", required: true, options: ["europe", "uk"] },
           { type: "number", name: "episode", label: "Episode Number" },
           { type: "string", name: "duration", label: "Duration (e.g. 22 min)" },
           { type: "image", name: "image", label: "Thumbnail Image" },
@@ -140,6 +139,28 @@ export default defineConfig({
             ],
           },
           { type: "image", name: "photos", label: "Photo Gallery", list: true },
+          { type: "string", name: "youtubeId", label: "YouTube Video ID" },
+          { type: "rich-text", name: "body", label: "Episode Notes", isBody: true },
+        ],
+      },
+
+      // ── UK Episodes ────────────────────────────────────────────
+      {
+        name: "ukEpisodes",
+        label: "UK Episodes",
+        path: "content/episodes/uk",
+        format: "mdx",
+        fields: [
+          { type: "string", name: "title", label: "City / Title", isTitle: true, required: true },
+          { type: "string", name: "country", label: "Country" },
+          { type: "string", name: "flag", label: "Flag Emoji" },
+          { type: "number", name: "episode", label: "Episode Number" },
+          { type: "string", name: "duration", label: "Duration (e.g. 22 min)" },
+          { type: "image", name: "image", label: "Thumbnail Image" },
+          { type: "image", name: "heroImage", label: "Hero Image (full screen)" },
+          { type: "string", name: "description", label: "Short Description", ui: { component: "textarea" } },
+          { type: "string", name: "comingSoonText", label: "Coming Soon Text", ui: { component: "textarea" } },
+          { type: "string", name: "highlights", label: "Highlights", list: true },
           { type: "string", name: "youtubeId", label: "YouTube Video ID" },
           { type: "rich-text", name: "body", label: "Episode Notes", isBody: true },
         ],

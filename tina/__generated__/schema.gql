@@ -58,8 +58,10 @@ type Query {
   pagesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PagesFilter): PagesConnection!
   settings(relativePath: String): Settings!
   settingsConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: SettingsFilter): SettingsConnection!
-  episodes(relativePath: String): Episodes!
-  episodesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: EpisodesFilter): EpisodesConnection!
+  europeEpisodes(relativePath: String): EuropeEpisodes!
+  europeEpisodesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: EuropeEpisodesFilter): EuropeEpisodesConnection!
+  ukEpisodes(relativePath: String): UkEpisodes!
+  ukEpisodesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: UkEpisodesFilter): UkEpisodesConnection!
   gear(relativePath: String): Gear!
   gearConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: GearFilter): GearConnection!
   destinations(relativePath: String): Destinations!
@@ -73,7 +75,8 @@ type Query {
 input DocumentFilter {
   pages: PagesFilter
   settings: SettingsFilter
-  episodes: EpisodesFilter
+  europeEpisodes: EuropeEpisodesFilter
+  ukEpisodes: UkEpisodesFilter
   gear: GearFilter
   destinations: DestinationsFilter
   journal: JournalFilter
@@ -103,7 +106,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter, folder: String): DocumentConnection!
 }
 
-union DocumentNode = Pages | Settings | Episodes | Gear | Destinations | Journal | TravelHacks | Folder
+union DocumentNode = Pages | Settings | EuropeEpisodes | UkEpisodes | Gear | Destinations | Journal | TravelHacks | Folder
 
 type Pages implements Node & Document {
   heroEyebrow: String
@@ -275,23 +278,22 @@ type SettingsConnection implements Connection {
   edges: [SettingsConnectionEdges]
 }
 
-type EpisodesItinerary {
+type EuropeEpisodesItinerary {
   day: String
   title: String
   description: String
 }
 
-type EpisodesBudget {
+type EuropeEpisodesBudget {
   item: String
   cost: String
   perDay: String
 }
 
-type Episodes implements Node & Document {
+type EuropeEpisodes implements Node & Document {
   title: String!
   country: String
   flag: String
-  series: String!
   episode: Float
   duration: String
   image: String
@@ -302,9 +304,9 @@ type Episodes implements Node & Document {
   comingSoonText: String
   chaosMoment: String
   highlights: [String]
-  itinerary: [EpisodesItinerary]
+  itinerary: [EuropeEpisodesItinerary]
   familyTips: [String]
-  budget: [EpisodesBudget]
+  budget: [EuropeEpisodesBudget]
   photos: [String]
   youtubeId: String
   body: JSON
@@ -323,13 +325,13 @@ input NumberFilter {
   in: [Float]
 }
 
-input EpisodesItineraryFilter {
+input EuropeEpisodesItineraryFilter {
   day: StringFilter
   title: StringFilter
   description: StringFilter
 }
 
-input EpisodesBudgetFilter {
+input EuropeEpisodesBudgetFilter {
   item: StringFilter
   cost: StringFilter
   perDay: StringFilter
@@ -341,11 +343,10 @@ input RichTextFilter {
   exists: Boolean
 }
 
-input EpisodesFilter {
+input EuropeEpisodesFilter {
   title: StringFilter
   country: StringFilter
   flag: StringFilter
-  series: StringFilter
   episode: NumberFilter
   duration: StringFilter
   image: ImageFilter
@@ -356,23 +357,67 @@ input EpisodesFilter {
   comingSoonText: StringFilter
   chaosMoment: StringFilter
   highlights: StringFilter
-  itinerary: EpisodesItineraryFilter
+  itinerary: EuropeEpisodesItineraryFilter
   familyTips: StringFilter
-  budget: EpisodesBudgetFilter
+  budget: EuropeEpisodesBudgetFilter
   photos: ImageFilter
   youtubeId: StringFilter
   body: RichTextFilter
 }
 
-type EpisodesConnectionEdges {
+type EuropeEpisodesConnectionEdges {
   cursor: String!
-  node: Episodes
+  node: EuropeEpisodes
 }
 
-type EpisodesConnection implements Connection {
+type EuropeEpisodesConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
-  edges: [EpisodesConnectionEdges]
+  edges: [EuropeEpisodesConnectionEdges]
+}
+
+type UkEpisodes implements Node & Document {
+  title: String!
+  country: String
+  flag: String
+  episode: Float
+  duration: String
+  image: String
+  heroImage: String
+  description: String
+  comingSoonText: String
+  highlights: [String]
+  youtubeId: String
+  body: JSON
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input UkEpisodesFilter {
+  title: StringFilter
+  country: StringFilter
+  flag: StringFilter
+  episode: NumberFilter
+  duration: StringFilter
+  image: ImageFilter
+  heroImage: ImageFilter
+  description: StringFilter
+  comingSoonText: StringFilter
+  highlights: StringFilter
+  youtubeId: StringFilter
+  body: RichTextFilter
+}
+
+type UkEpisodesConnectionEdges {
+  cursor: String!
+  node: UkEpisodes
+}
+
+type UkEpisodesConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [UkEpisodesConnectionEdges]
 }
 
 type Gear implements Node & Document {
@@ -525,8 +570,10 @@ type Mutation {
   createPages(relativePath: String!, params: PagesMutation!): Pages!
   updateSettings(relativePath: String!, params: SettingsMutation!): Settings!
   createSettings(relativePath: String!, params: SettingsMutation!): Settings!
-  updateEpisodes(relativePath: String!, params: EpisodesMutation!): Episodes!
-  createEpisodes(relativePath: String!, params: EpisodesMutation!): Episodes!
+  updateEuropeEpisodes(relativePath: String!, params: EuropeEpisodesMutation!): EuropeEpisodes!
+  createEuropeEpisodes(relativePath: String!, params: EuropeEpisodesMutation!): EuropeEpisodes!
+  updateUkEpisodes(relativePath: String!, params: UkEpisodesMutation!): UkEpisodes!
+  createUkEpisodes(relativePath: String!, params: UkEpisodesMutation!): UkEpisodes!
   updateGear(relativePath: String!, params: GearMutation!): Gear!
   createGear(relativePath: String!, params: GearMutation!): Gear!
   updateDestinations(relativePath: String!, params: DestinationsMutation!): Destinations!
@@ -540,7 +587,8 @@ type Mutation {
 input DocumentUpdateMutation {
   pages: PagesMutation
   settings: SettingsMutation
-  episodes: EpisodesMutation
+  europeEpisodes: EuropeEpisodesMutation
+  ukEpisodes: UkEpisodesMutation
   gear: GearMutation
   destinations: DestinationsMutation
   journal: JournalMutation
@@ -551,7 +599,8 @@ input DocumentUpdateMutation {
 input DocumentMutation {
   pages: PagesMutation
   settings: SettingsMutation
-  episodes: EpisodesMutation
+  europeEpisodes: EuropeEpisodesMutation
+  ukEpisodes: UkEpisodesMutation
   gear: GearMutation
   destinations: DestinationsMutation
   journal: JournalMutation
@@ -622,23 +671,22 @@ input SettingsMutation {
   footerCopyright: String
 }
 
-input EpisodesItineraryMutation {
+input EuropeEpisodesItineraryMutation {
   day: String
   title: String
   description: String
 }
 
-input EpisodesBudgetMutation {
+input EuropeEpisodesBudgetMutation {
   item: String
   cost: String
   perDay: String
 }
 
-input EpisodesMutation {
+input EuropeEpisodesMutation {
   title: String
   country: String
   flag: String
-  series: String
   episode: Float
   duration: String
   image: String
@@ -649,10 +697,25 @@ input EpisodesMutation {
   comingSoonText: String
   chaosMoment: String
   highlights: [String]
-  itinerary: [EpisodesItineraryMutation]
+  itinerary: [EuropeEpisodesItineraryMutation]
   familyTips: [String]
-  budget: [EpisodesBudgetMutation]
+  budget: [EuropeEpisodesBudgetMutation]
   photos: [String]
+  youtubeId: String
+  body: JSON
+}
+
+input UkEpisodesMutation {
+  title: String
+  country: String
+  flag: String
+  episode: Float
+  duration: String
+  image: String
+  heroImage: String
+  description: String
+  comingSoonText: String
+  highlights: [String]
   youtubeId: String
   body: JSON
 }

@@ -73,13 +73,12 @@ export const SettingsPartsFragmentDoc = gql`
   footerCopyright
 }
     `;
-export const EpisodesPartsFragmentDoc = gql`
-    fragment EpisodesParts on Episodes {
+export const EuropeEpisodesPartsFragmentDoc = gql`
+    fragment EuropeEpisodesParts on EuropeEpisodes {
   __typename
   title
   country
   flag
-  series
   episode
   duration
   image
@@ -104,6 +103,23 @@ export const EpisodesPartsFragmentDoc = gql`
     perDay
   }
   photos
+  youtubeId
+  body
+}
+    `;
+export const UkEpisodesPartsFragmentDoc = gql`
+    fragment UkEpisodesParts on UkEpisodes {
+  __typename
+  title
+  country
+  flag
+  episode
+  duration
+  image
+  heroImage
+  description
+  comingSoonText
+  highlights
   youtubeId
   body
 }
@@ -268,9 +284,9 @@ export const SettingsConnectionDocument = gql`
   }
 }
     ${SettingsPartsFragmentDoc}`;
-export const EpisodesDocument = gql`
-    query episodes($relativePath: String!) {
-  episodes(relativePath: $relativePath) {
+export const EuropeEpisodesDocument = gql`
+    query europeEpisodes($relativePath: String!) {
+  europeEpisodes(relativePath: $relativePath) {
     ... on Document {
       _sys {
         filename
@@ -283,13 +299,13 @@ export const EpisodesDocument = gql`
       }
       id
     }
-    ...EpisodesParts
+    ...EuropeEpisodesParts
   }
 }
-    ${EpisodesPartsFragmentDoc}`;
-export const EpisodesConnectionDocument = gql`
-    query episodesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: EpisodesFilter) {
-  episodesConnection(
+    ${EuropeEpisodesPartsFragmentDoc}`;
+export const EuropeEpisodesConnectionDocument = gql`
+    query europeEpisodesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: EuropeEpisodesFilter) {
+  europeEpisodesConnection(
     before: $before
     after: $after
     first: $first
@@ -319,12 +335,69 @@ export const EpisodesConnectionDocument = gql`
           }
           id
         }
-        ...EpisodesParts
+        ...EuropeEpisodesParts
       }
     }
   }
 }
-    ${EpisodesPartsFragmentDoc}`;
+    ${EuropeEpisodesPartsFragmentDoc}`;
+export const UkEpisodesDocument = gql`
+    query ukEpisodes($relativePath: String!) {
+  ukEpisodes(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        hasReferences
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...UkEpisodesParts
+  }
+}
+    ${UkEpisodesPartsFragmentDoc}`;
+export const UkEpisodesConnectionDocument = gql`
+    query ukEpisodesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: UkEpisodesFilter) {
+  ukEpisodesConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
+    totalCount
+    edges {
+      cursor
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            hasReferences
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...UkEpisodesParts
+      }
+    }
+  }
+}
+    ${UkEpisodesPartsFragmentDoc}`;
 export const GearDocument = gql`
     query gear($relativePath: String!) {
   gear(relativePath: $relativePath) {
@@ -567,11 +640,17 @@ export function getSdk(requester) {
     settingsConnection(variables, options) {
       return requester(SettingsConnectionDocument, variables, options);
     },
-    episodes(variables, options) {
-      return requester(EpisodesDocument, variables, options);
+    europeEpisodes(variables, options) {
+      return requester(EuropeEpisodesDocument, variables, options);
     },
-    episodesConnection(variables, options) {
-      return requester(EpisodesConnectionDocument, variables, options);
+    europeEpisodesConnection(variables, options) {
+      return requester(EuropeEpisodesConnectionDocument, variables, options);
+    },
+    ukEpisodes(variables, options) {
+      return requester(UkEpisodesDocument, variables, options);
+    },
+    ukEpisodesConnection(variables, options) {
+      return requester(UkEpisodesConnectionDocument, variables, options);
     },
     gear(variables, options) {
       return requester(GearDocument, variables, options);
