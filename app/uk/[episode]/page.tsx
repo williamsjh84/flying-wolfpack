@@ -27,8 +27,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function UKEpisodePage({ params }: Props) {
   const { episode: slug } = await params;
-  const ep = getEpisodeBySlug(slug);
-  if (!ep || ep.series !== "uk") notFound();
+  const ep = getEpisodeBySlug(slug, "uk");
+  if (!ep) notFound();
 
   const allUK = getEpisodes("uk");
   const prevEp = allUK.find((e: any) => e.episode === ep.episode - 1);
