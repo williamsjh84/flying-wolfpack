@@ -120,6 +120,21 @@ export const UkEpisodesPartsFragmentDoc = gql`
   description
   comingSoonText
   highlights
+  photos
+  itinerary {
+    __typename
+    day
+    title
+    description
+  }
+  familyTips
+  budget {
+    __typename
+    item
+    cost
+    perDay
+  }
+  chaosMoment
   youtubeId
   body
 }

@@ -160,6 +160,31 @@ var config_default = defineConfig({
           { type: "string", name: "description", label: "Short Description", ui: { component: "textarea" } },
           { type: "string", name: "comingSoonText", label: "Coming Soon Text", ui: { component: "textarea" } },
           { type: "string", name: "highlights", label: "Highlights", list: true },
+          { type: "image", name: "photos", label: "Photo Gallery", list: true },
+          {
+            type: "object",
+            name: "itinerary",
+            label: "Itinerary",
+            list: true,
+            fields: [
+              { type: "string", name: "day", label: "Day Label (e.g. Day 1)" },
+              { type: "string", name: "title", label: "Day Title" },
+              { type: "string", name: "description", label: "Description", ui: { component: "textarea" } }
+            ]
+          },
+          { type: "string", name: "familyTips", label: "Family Tips", list: true },
+          {
+            type: "object",
+            name: "budget",
+            label: "Budget Breakdown",
+            list: true,
+            fields: [
+              { type: "string", name: "item", label: "Category" },
+              { type: "string", name: "cost", label: "Total Cost (e.g. $620)" },
+              { type: "string", name: "perDay", label: "Per Day (e.g. $124)" }
+            ]
+          },
+          { type: "string", name: "chaosMoment", label: "Chaos Moment Quote", ui: { component: "textarea" } },
           { type: "string", name: "youtubeId", label: "YouTube Video ID" },
           { type: "rich-text", name: "body", label: "Episode Notes", isBody: true }
         ]

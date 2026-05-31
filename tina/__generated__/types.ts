@@ -570,6 +570,20 @@ export type EuropeEpisodesConnection = Connection & {
   edges?: Maybe<Array<Maybe<EuropeEpisodesConnectionEdges>>>;
 };
 
+export type UkEpisodesItinerary = {
+  __typename?: 'UkEpisodesItinerary';
+  day?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  description?: Maybe<Scalars['String']['output']>;
+};
+
+export type UkEpisodesBudget = {
+  __typename?: 'UkEpisodesBudget';
+  item?: Maybe<Scalars['String']['output']>;
+  cost?: Maybe<Scalars['String']['output']>;
+  perDay?: Maybe<Scalars['String']['output']>;
+};
+
 export type UkEpisodes = Node & Document & {
   __typename?: 'UkEpisodes';
   title: Scalars['String']['output'];
@@ -582,11 +596,28 @@ export type UkEpisodes = Node & Document & {
   description?: Maybe<Scalars['String']['output']>;
   comingSoonText?: Maybe<Scalars['String']['output']>;
   highlights?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  photos?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  itinerary?: Maybe<Array<Maybe<UkEpisodesItinerary>>>;
+  familyTips?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  budget?: Maybe<Array<Maybe<UkEpisodesBudget>>>;
+  chaosMoment?: Maybe<Scalars['String']['output']>;
   youtubeId?: Maybe<Scalars['String']['output']>;
   body?: Maybe<Scalars['JSON']['output']>;
   id: Scalars['ID']['output'];
   _sys: SystemInfo;
   _values: Scalars['JSON']['output'];
+};
+
+export type UkEpisodesItineraryFilter = {
+  day?: InputMaybe<StringFilter>;
+  title?: InputMaybe<StringFilter>;
+  description?: InputMaybe<StringFilter>;
+};
+
+export type UkEpisodesBudgetFilter = {
+  item?: InputMaybe<StringFilter>;
+  cost?: InputMaybe<StringFilter>;
+  perDay?: InputMaybe<StringFilter>;
 };
 
 export type UkEpisodesFilter = {
@@ -600,6 +631,11 @@ export type UkEpisodesFilter = {
   description?: InputMaybe<StringFilter>;
   comingSoonText?: InputMaybe<StringFilter>;
   highlights?: InputMaybe<StringFilter>;
+  photos?: InputMaybe<ImageFilter>;
+  itinerary?: InputMaybe<UkEpisodesItineraryFilter>;
+  familyTips?: InputMaybe<StringFilter>;
+  budget?: InputMaybe<UkEpisodesBudgetFilter>;
+  chaosMoment?: InputMaybe<StringFilter>;
   youtubeId?: InputMaybe<StringFilter>;
   body?: InputMaybe<RichTextFilter>;
 };
@@ -1044,6 +1080,18 @@ export type EuropeEpisodesMutation = {
   body?: InputMaybe<Scalars['JSON']['input']>;
 };
 
+export type UkEpisodesItineraryMutation = {
+  day?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  description?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UkEpisodesBudgetMutation = {
+  item?: InputMaybe<Scalars['String']['input']>;
+  cost?: InputMaybe<Scalars['String']['input']>;
+  perDay?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type UkEpisodesMutation = {
   title?: InputMaybe<Scalars['String']['input']>;
   country?: InputMaybe<Scalars['String']['input']>;
@@ -1055,6 +1103,11 @@ export type UkEpisodesMutation = {
   description?: InputMaybe<Scalars['String']['input']>;
   comingSoonText?: InputMaybe<Scalars['String']['input']>;
   highlights?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  photos?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  itinerary?: InputMaybe<Array<InputMaybe<UkEpisodesItineraryMutation>>>;
+  familyTips?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  budget?: InputMaybe<Array<InputMaybe<UkEpisodesBudgetMutation>>>;
+  chaosMoment?: InputMaybe<Scalars['String']['input']>;
   youtubeId?: InputMaybe<Scalars['String']['input']>;
   body?: InputMaybe<Scalars['JSON']['input']>;
 };
@@ -1103,7 +1156,7 @@ export type SettingsPartsFragment = { __typename: 'Settings', siteName?: string 
 
 export type EuropeEpisodesPartsFragment = { __typename: 'EuropeEpisodes', title: string, country?: string | null, flag?: string | null, episode?: number | null, duration?: string | null, image?: string | null, heroImage?: string | null, description?: string | null, summary?: string | null, storyText?: string | null, comingSoonText?: string | null, chaosMoment?: string | null, highlights?: Array<string | null> | null, familyTips?: Array<string | null> | null, photos?: Array<string | null> | null, youtubeId?: string | null, body?: any | null, itinerary?: Array<{ __typename: 'EuropeEpisodesItinerary', day?: string | null, title?: string | null, description?: string | null } | null> | null, budget?: Array<{ __typename: 'EuropeEpisodesBudget', item?: string | null, cost?: string | null, perDay?: string | null } | null> | null };
 
-export type UkEpisodesPartsFragment = { __typename: 'UkEpisodes', title: string, country?: string | null, flag?: string | null, episode?: number | null, duration?: string | null, image?: string | null, heroImage?: string | null, description?: string | null, comingSoonText?: string | null, highlights?: Array<string | null> | null, youtubeId?: string | null, body?: any | null };
+export type UkEpisodesPartsFragment = { __typename: 'UkEpisodes', title: string, country?: string | null, flag?: string | null, episode?: number | null, duration?: string | null, image?: string | null, heroImage?: string | null, description?: string | null, comingSoonText?: string | null, highlights?: Array<string | null> | null, photos?: Array<string | null> | null, familyTips?: Array<string | null> | null, chaosMoment?: string | null, youtubeId?: string | null, body?: any | null, itinerary?: Array<{ __typename: 'UkEpisodesItinerary', day?: string | null, title?: string | null, description?: string | null } | null> | null, budget?: Array<{ __typename: 'UkEpisodesBudget', item?: string | null, cost?: string | null, perDay?: string | null } | null> | null };
 
 export type GearPartsFragment = { __typename: 'Gear', name: string, category?: string | null, price?: string | null, rating?: string | null, summary?: string | null, image?: string | null, affiliateUrl?: string | null };
 
@@ -1175,7 +1228,7 @@ export type UkEpisodesQueryVariables = Exact<{
 }>;
 
 
-export type UkEpisodesQuery = { __typename?: 'Query', ukEpisodes: { __typename: 'UkEpisodes', id: string, title: string, country?: string | null, flag?: string | null, episode?: number | null, duration?: string | null, image?: string | null, heroImage?: string | null, description?: string | null, comingSoonText?: string | null, highlights?: Array<string | null> | null, youtubeId?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type UkEpisodesQuery = { __typename?: 'Query', ukEpisodes: { __typename: 'UkEpisodes', id: string, title: string, country?: string | null, flag?: string | null, episode?: number | null, duration?: string | null, image?: string | null, heroImage?: string | null, description?: string | null, comingSoonText?: string | null, highlights?: Array<string | null> | null, photos?: Array<string | null> | null, familyTips?: Array<string | null> | null, chaosMoment?: string | null, youtubeId?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, itinerary?: Array<{ __typename: 'UkEpisodesItinerary', day?: string | null, title?: string | null, description?: string | null } | null> | null, budget?: Array<{ __typename: 'UkEpisodesBudget', item?: string | null, cost?: string | null, perDay?: string | null } | null> | null } };
 
 export type UkEpisodesConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -1187,7 +1240,7 @@ export type UkEpisodesConnectionQueryVariables = Exact<{
 }>;
 
 
-export type UkEpisodesConnectionQuery = { __typename?: 'Query', ukEpisodesConnection: { __typename?: 'UkEpisodesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'UkEpisodesConnectionEdges', cursor: string, node?: { __typename: 'UkEpisodes', id: string, title: string, country?: string | null, flag?: string | null, episode?: number | null, duration?: string | null, image?: string | null, heroImage?: string | null, description?: string | null, comingSoonText?: string | null, highlights?: Array<string | null> | null, youtubeId?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type UkEpisodesConnectionQuery = { __typename?: 'Query', ukEpisodesConnection: { __typename?: 'UkEpisodesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'UkEpisodesConnectionEdges', cursor: string, node?: { __typename: 'UkEpisodes', id: string, title: string, country?: string | null, flag?: string | null, episode?: number | null, duration?: string | null, image?: string | null, heroImage?: string | null, description?: string | null, comingSoonText?: string | null, highlights?: Array<string | null> | null, photos?: Array<string | null> | null, familyTips?: Array<string | null> | null, chaosMoment?: string | null, youtubeId?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, itinerary?: Array<{ __typename: 'UkEpisodesItinerary', day?: string | null, title?: string | null, description?: string | null } | null> | null, budget?: Array<{ __typename: 'UkEpisodesBudget', item?: string | null, cost?: string | null, perDay?: string | null } | null> | null } | null } | null> | null } };
 
 export type GearQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];
@@ -1380,6 +1433,21 @@ export const UkEpisodesPartsFragmentDoc = gql`
   description
   comingSoonText
   highlights
+  photos
+  itinerary {
+    __typename
+    day
+    title
+    description
+  }
+  familyTips
+  budget {
+    __typename
+    item
+    cost
+    perDay
+  }
+  chaosMoment
   youtubeId
   body
 }

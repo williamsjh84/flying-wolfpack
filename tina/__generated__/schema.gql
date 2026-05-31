@@ -376,6 +376,18 @@ type EuropeEpisodesConnection implements Connection {
   edges: [EuropeEpisodesConnectionEdges]
 }
 
+type UkEpisodesItinerary {
+  day: String
+  title: String
+  description: String
+}
+
+type UkEpisodesBudget {
+  item: String
+  cost: String
+  perDay: String
+}
+
 type UkEpisodes implements Node & Document {
   title: String!
   country: String
@@ -387,11 +399,28 @@ type UkEpisodes implements Node & Document {
   description: String
   comingSoonText: String
   highlights: [String]
+  photos: [String]
+  itinerary: [UkEpisodesItinerary]
+  familyTips: [String]
+  budget: [UkEpisodesBudget]
+  chaosMoment: String
   youtubeId: String
   body: JSON
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
+}
+
+input UkEpisodesItineraryFilter {
+  day: StringFilter
+  title: StringFilter
+  description: StringFilter
+}
+
+input UkEpisodesBudgetFilter {
+  item: StringFilter
+  cost: StringFilter
+  perDay: StringFilter
 }
 
 input UkEpisodesFilter {
@@ -405,6 +434,11 @@ input UkEpisodesFilter {
   description: StringFilter
   comingSoonText: StringFilter
   highlights: StringFilter
+  photos: ImageFilter
+  itinerary: UkEpisodesItineraryFilter
+  familyTips: StringFilter
+  budget: UkEpisodesBudgetFilter
+  chaosMoment: StringFilter
   youtubeId: StringFilter
   body: RichTextFilter
 }
@@ -705,6 +739,18 @@ input EuropeEpisodesMutation {
   body: JSON
 }
 
+input UkEpisodesItineraryMutation {
+  day: String
+  title: String
+  description: String
+}
+
+input UkEpisodesBudgetMutation {
+  item: String
+  cost: String
+  perDay: String
+}
+
 input UkEpisodesMutation {
   title: String
   country: String
@@ -716,6 +762,11 @@ input UkEpisodesMutation {
   description: String
   comingSoonText: String
   highlights: [String]
+  photos: [String]
+  itinerary: [UkEpisodesItineraryMutation]
+  familyTips: [String]
+  budget: [UkEpisodesBudgetMutation]
+  chaosMoment: String
   youtubeId: String
   body: JSON
 }
