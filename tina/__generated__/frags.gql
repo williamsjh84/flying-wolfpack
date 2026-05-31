@@ -75,9 +75,25 @@ fragment EpisodesParts on Episodes {
   image
   heroImage
   description
+  summary
   storyText
   comingSoonText
+  chaosMoment
   highlights
+  itinerary {
+    __typename
+    day
+    title
+    description
+  }
+  familyTips
+  budget {
+    __typename
+    item
+    cost
+    perDay
+  }
+  photos
   youtubeId
   body
 }

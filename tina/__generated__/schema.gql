@@ -275,6 +275,18 @@ type SettingsConnection implements Connection {
   edges: [SettingsConnectionEdges]
 }
 
+type EpisodesItinerary {
+  day: String
+  title: String
+  description: String
+}
+
+type EpisodesBudget {
+  item: String
+  cost: String
+  perDay: String
+}
+
 type Episodes implements Node & Document {
   title: String!
   country: String
@@ -285,9 +297,15 @@ type Episodes implements Node & Document {
   image: String
   heroImage: String
   description: String
+  summary: String
   storyText: String
   comingSoonText: String
+  chaosMoment: String
   highlights: [String]
+  itinerary: [EpisodesItinerary]
+  familyTips: [String]
+  budget: [EpisodesBudget]
+  photos: [String]
   youtubeId: String
   body: JSON
   id: ID!
@@ -303,6 +321,18 @@ input NumberFilter {
   eq: Float
   exists: Boolean
   in: [Float]
+}
+
+input EpisodesItineraryFilter {
+  day: StringFilter
+  title: StringFilter
+  description: StringFilter
+}
+
+input EpisodesBudgetFilter {
+  item: StringFilter
+  cost: StringFilter
+  perDay: StringFilter
 }
 
 input RichTextFilter {
@@ -321,9 +351,15 @@ input EpisodesFilter {
   image: ImageFilter
   heroImage: ImageFilter
   description: StringFilter
+  summary: StringFilter
   storyText: StringFilter
   comingSoonText: StringFilter
+  chaosMoment: StringFilter
   highlights: StringFilter
+  itinerary: EpisodesItineraryFilter
+  familyTips: StringFilter
+  budget: EpisodesBudgetFilter
+  photos: ImageFilter
   youtubeId: StringFilter
   body: RichTextFilter
 }
@@ -586,6 +622,18 @@ input SettingsMutation {
   footerCopyright: String
 }
 
+input EpisodesItineraryMutation {
+  day: String
+  title: String
+  description: String
+}
+
+input EpisodesBudgetMutation {
+  item: String
+  cost: String
+  perDay: String
+}
+
 input EpisodesMutation {
   title: String
   country: String
@@ -596,9 +644,15 @@ input EpisodesMutation {
   image: String
   heroImage: String
   description: String
+  summary: String
   storyText: String
   comingSoonText: String
+  chaosMoment: String
   highlights: [String]
+  itinerary: [EpisodesItineraryMutation]
+  familyTips: [String]
+  budget: [EpisodesBudgetMutation]
+  photos: [String]
   youtubeId: String
   body: JSON
 }
