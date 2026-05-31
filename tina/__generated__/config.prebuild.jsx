@@ -105,7 +105,7 @@ var config_default = defineConfig({
           { type: "string", name: "title", label: "City / Title", isTitle: true, required: true },
           { type: "string", name: "country", label: "Country" },
           { type: "string", name: "flag", label: "Flag Emoji" },
-          { type: "string", name: "series", label: "Series (europe / uk)" },
+          { type: "string", name: "series", label: "Series", required: true, options: ["europe", "uk"] },
           { type: "number", name: "episode", label: "Episode Number" },
           { type: "string", name: "duration", label: "Duration (e.g. 22 min)" },
           { type: "image", name: "image", label: "Thumbnail Image" },

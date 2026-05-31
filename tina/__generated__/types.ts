@@ -454,7 +454,7 @@ export type Episodes = Node & Document & {
   title: Scalars['String']['output'];
   country?: Maybe<Scalars['String']['output']>;
   flag?: Maybe<Scalars['String']['output']>;
-  series?: Maybe<Scalars['String']['output']>;
+  series: Scalars['String']['output'];
   episode?: Maybe<Scalars['Float']['output']>;
   duration?: Maybe<Scalars['String']['output']>;
   image?: Maybe<Scalars['String']['output']>;
@@ -952,7 +952,7 @@ export type PagesPartsFragment = { __typename: 'Pages', heroEyebrow?: string | n
 
 export type SettingsPartsFragment = { __typename: 'Settings', siteName?: string | null, siteTagline?: string | null, youtube?: string | null, instagram?: string | null, facebook?: string | null, email?: string | null, footerCopyright?: string | null };
 
-export type EpisodesPartsFragment = { __typename: 'Episodes', title: string, country?: string | null, flag?: string | null, series?: string | null, episode?: number | null, duration?: string | null, image?: string | null, heroImage?: string | null, description?: string | null, storyText?: string | null, comingSoonText?: string | null, highlights?: Array<string | null> | null, youtubeId?: string | null, body?: any | null };
+export type EpisodesPartsFragment = { __typename: 'Episodes', title: string, country?: string | null, flag?: string | null, series: string, episode?: number | null, duration?: string | null, image?: string | null, heroImage?: string | null, description?: string | null, storyText?: string | null, comingSoonText?: string | null, highlights?: Array<string | null> | null, youtubeId?: string | null, body?: any | null };
 
 export type GearPartsFragment = { __typename: 'Gear', name: string, category?: string | null, price?: string | null, rating?: string | null, summary?: string | null, image?: string | null, affiliateUrl?: string | null };
 
@@ -1005,7 +1005,7 @@ export type EpisodesQueryVariables = Exact<{
 }>;
 
 
-export type EpisodesQuery = { __typename?: 'Query', episodes: { __typename: 'Episodes', id: string, title: string, country?: string | null, flag?: string | null, series?: string | null, episode?: number | null, duration?: string | null, image?: string | null, heroImage?: string | null, description?: string | null, storyText?: string | null, comingSoonText?: string | null, highlights?: Array<string | null> | null, youtubeId?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type EpisodesQuery = { __typename?: 'Query', episodes: { __typename: 'Episodes', id: string, title: string, country?: string | null, flag?: string | null, series: string, episode?: number | null, duration?: string | null, image?: string | null, heroImage?: string | null, description?: string | null, storyText?: string | null, comingSoonText?: string | null, highlights?: Array<string | null> | null, youtubeId?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
 
 export type EpisodesConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']['input']>;
@@ -1017,7 +1017,7 @@ export type EpisodesConnectionQueryVariables = Exact<{
 }>;
 
 
-export type EpisodesConnectionQuery = { __typename?: 'Query', episodesConnection: { __typename?: 'EpisodesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'EpisodesConnectionEdges', cursor: string, node?: { __typename: 'Episodes', id: string, title: string, country?: string | null, flag?: string | null, series?: string | null, episode?: number | null, duration?: string | null, image?: string | null, heroImage?: string | null, description?: string | null, storyText?: string | null, comingSoonText?: string | null, highlights?: Array<string | null> | null, youtubeId?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
+export type EpisodesConnectionQuery = { __typename?: 'Query', episodesConnection: { __typename?: 'EpisodesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'EpisodesConnectionEdges', cursor: string, node?: { __typename: 'Episodes', id: string, title: string, country?: string | null, flag?: string | null, series: string, episode?: number | null, duration?: string | null, image?: string | null, heroImage?: string | null, description?: string | null, storyText?: string | null, comingSoonText?: string | null, highlights?: Array<string | null> | null, youtubeId?: string | null, body?: any | null, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, hasReferences?: boolean | null, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null } | null> | null } };
 
 export type GearQueryVariables = Exact<{
   relativePath: Scalars['String']['input'];

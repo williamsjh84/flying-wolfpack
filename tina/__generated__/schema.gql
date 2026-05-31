@@ -279,7 +279,7 @@ type Episodes implements Node & Document {
   title: String!
   country: String
   flag: String
-  series: String
+  series: String!
   episode: Float
   duration: String
   image: String
