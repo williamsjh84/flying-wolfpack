@@ -6,6 +6,7 @@ import SectionHeader from "@/components/sections/SectionHeader";
 import EmailSignup from "@/components/sections/EmailSignup";
 import Badge from "@/components/ui/Badge";
 import { getGearItems } from "@/lib/content";
+import StoryblokPublishedStory, { getPublishedStory } from "@/components/storyblok/StoryblokPublishedStory";
 
 export const metadata: Metadata = {
   title: "Gear",
@@ -15,7 +16,10 @@ export const metadata: Metadata = {
 
 const CATEGORIES = ["All", "Camera", "Bags", "Tech", "Connectivity", "Kids Gear"];
 
-export default function GearPage() {
+export default async function GearPage() {
+  const story = await getPublishedStory("gear");
+  if (story) return <StoryblokPublishedStory story={story} />;
+
   const gearItems = getGearItems();
 
   return (

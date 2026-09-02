@@ -5,6 +5,7 @@ import PageWrapper from "@/components/layout/PageWrapper";
 import EmailSignup from "@/components/sections/EmailSignup";
 import { getJournalPosts, getJournalPostBySlug } from "@/lib/content";
 import { formatDate } from "@/lib/utils";
+import StoryblokPublishedStory, { getPublishedStory } from "@/components/storyblok/StoryblokPublishedStory";
 
 interface Props { params: Promise<{ slug: string }> }
 
@@ -21,6 +22,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function JournalPostPage({ params }: Props) {
   const { slug } = await params;
+  const story = await getPublishedStory(`journal-${slug}`);
+  if (story) return <StoryblokPublishedStory story={story} />;
+
   const post = getJournalPostBySlug(slug);
   if (!post) notFound();
 

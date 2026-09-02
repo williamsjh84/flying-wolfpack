@@ -4,13 +4,17 @@ import PageWrapper from "@/components/layout/PageWrapper";
 import Hero from "@/components/sections/Hero";
 import EmailSignup from "@/components/sections/EmailSignup";
 import { getPage } from "@/lib/content";
+import StoryblokPublishedStory, { getPublishedStory } from "@/components/storyblok/StoryblokPublishedStory";
 
 export const metadata: Metadata = {
   title: "About",
   description: "We're a family of four who got tired of just talking about travel. This is what happened when we finally went.",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const story = await getPublishedStory("about");
+  if (story) return <StoryblokPublishedStory story={story} />;
+
   const p = getPage("about");
 
   return (

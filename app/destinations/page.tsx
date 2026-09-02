@@ -4,13 +4,17 @@ import Hero from "@/components/sections/Hero";
 import DestinationCard from "@/components/sections/DestinationCard";
 import SectionHeader from "@/components/sections/SectionHeader";
 import { getDestinations } from "@/lib/content";
+import StoryblokPublishedStory, { getPublishedStory } from "@/components/storyblok/StoryblokPublishedStory";
 
 export const metadata: Metadata = {
   title: "Destinations",
   description: "Every country, city, and island we've explored as a family.",
 };
 
-export default function DestinationsPage() {
+export default async function DestinationsPage() {
+  const story = await getPublishedStory("destinations");
+  if (story) return <StoryblokPublishedStory story={story} />;
+
   const destinations = getDestinations();
 
   return (

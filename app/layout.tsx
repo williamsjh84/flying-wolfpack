@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
+import StoryblokProvider from "@/components/storyblok/StoryblokProvider";
 import "./globals.css";
 
 const inter = Inter({
@@ -58,10 +59,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
-      <body className="flex min-h-screen flex-col bg-warm-white text-ink antialiased">
-        {children}
-      </body>
-    </html>
+    <StoryblokProvider>
+      <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+        <body className="flex min-h-screen flex-col bg-warm-white text-ink antialiased">
+          {children}
+        </body>
+      </html>
+    </StoryblokProvider>
   );
 }

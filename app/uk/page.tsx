@@ -5,13 +5,17 @@ import SectionHeader from "@/components/sections/SectionHeader";
 import EpisodeCard from "@/components/sections/EpisodeCard";
 import EmailSignup from "@/components/sections/EmailSignup";
 import { getPage, getEpisodes } from "@/lib/content";
+import StoryblokPublishedStory, { getPublishedStory } from "@/components/storyblok/StoryblokPublishedStory";
 
 export const metadata: Metadata = {
   title: "The United Kingdom Series",
   description: "London, the Cotswolds, and Scotland — three very different corners of the UK explored as a family.",
 };
 
-export default function UKPage() {
+export default async function UKPage() {
+  const story = await getPublishedStory("uk");
+  if (story) return <StoryblokPublishedStory story={story} />;
+
   const p = getPage("uk");
   const episodes = getEpisodes("uk");
 

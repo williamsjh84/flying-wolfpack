@@ -4,6 +4,7 @@ import PageWrapper from "@/components/layout/PageWrapper";
 import Hero from "@/components/sections/Hero";
 import EmailSignup from "@/components/sections/EmailSignup";
 import { FEATURED_DESTINATIONS } from "@/lib/constants";
+import StoryblokPublishedStory, { getPublishedStory } from "@/components/storyblok/StoryblokPublishedStory";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -25,6 +26,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function DestinationPage({ params }: Props) {
   const { slug } = await params;
+  const story = await getPublishedStory(`destination-${slug}`);
+  if (story) return <StoryblokPublishedStory story={story} />;
+
   const dest = FEATURED_DESTINATIONS.find((d) => d.slug === slug);
   if (!dest) notFound();
 

@@ -7,13 +7,17 @@ import SectionHeader from "@/components/sections/SectionHeader";
 import EmailSignup from "@/components/sections/EmailSignup";
 import { getJournalPosts } from "@/lib/content";
 import { formatDate } from "@/lib/utils";
+import StoryblokPublishedStory, { getPublishedStory } from "@/components/storyblok/StoryblokPublishedStory";
 
 export const metadata: Metadata = {
   title: "Journal",
   description: "Long-form writing from the road.",
 };
 
-export default function JournalPage() {
+export default async function JournalPage() {
+  const story = await getPublishedStory("journal");
+  if (story) return <StoryblokPublishedStory story={story} />;
+
   const posts = getJournalPosts();
   const [featured, ...rest] = posts;
 

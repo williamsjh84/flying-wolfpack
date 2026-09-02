@@ -6,6 +6,7 @@ import PageWrapper from "@/components/layout/PageWrapper";
 import EmailSignup from "@/components/sections/EmailSignup";
 import Badge from "@/components/ui/Badge";
 import { getEpisodes, getEpisodeBySlug } from "@/lib/content";
+import StoryblokPublishedStory, { getPublishedStory } from "@/components/storyblok/StoryblokPublishedStory";
 
 interface Props {
   params: Promise<{ episode: string }>;
@@ -27,6 +28,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function UKEpisodePage({ params }: Props) {
   const { episode: slug } = await params;
+  const story = await getPublishedStory(`uk-${slug}`);
+  if (story) return <StoryblokPublishedStory story={story} />;
+
   const ep = getEpisodeBySlug(slug, "uk");
   if (!ep) notFound();
 

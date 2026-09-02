@@ -10,10 +10,14 @@ import EmailSignup from "@/components/sections/EmailSignup";
 import Button from "@/components/ui/Button";
 import { getPage, getEpisodes, getDestinations, getTravelHacks, getJournalPosts } from "@/lib/content";
 import { formatDate } from "@/lib/utils";
+import StoryblokPublishedStory, { getPublishedStory } from "@/components/storyblok/StoryblokPublishedStory";
 
 export const metadata: Metadata = { title: "Flying Wolfpack — Family Travel" };
 
-export default function HomePage() {
+export default async function HomePage() {
+  const story = await getPublishedStory("home");
+  if (story) return <StoryblokPublishedStory story={story} />;
+
   const p = getPage("home");
   const episodes = getEpisodes().slice(0, 3);
   const destinations = getDestinations();

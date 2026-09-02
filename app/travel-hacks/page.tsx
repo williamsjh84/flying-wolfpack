@@ -6,6 +6,7 @@ import Hero from "@/components/sections/Hero";
 import SectionHeader from "@/components/sections/SectionHeader";
 import EmailSignup from "@/components/sections/EmailSignup";
 import { getTravelHacks } from "@/lib/content";
+import StoryblokPublishedStory, { getPublishedStory } from "@/components/storyblok/StoryblokPublishedStory";
 
 export const metadata: Metadata = {
   title: "Travel Hacks",
@@ -14,7 +15,10 @@ export const metadata: Metadata = {
 
 const CATEGORIES = ["All", "Points", "Flying", "Gear", "Logistics", "Budget"];
 
-export default function TravelHacksPage() {
+export default async function TravelHacksPage() {
+  const story = await getPublishedStory("travel-hacks");
+  if (story) return <StoryblokPublishedStory story={story} />;
+
   const hacks = getTravelHacks();
 
   return (

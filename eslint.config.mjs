@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Generated Tina admin bundle; it is not project source code.
+    "public/admin/**",
+    "tina/__generated__/**",
   ]),
 ]);
 

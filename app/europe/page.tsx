@@ -5,13 +5,17 @@ import SectionHeader from "@/components/sections/SectionHeader";
 import EpisodeCard from "@/components/sections/EpisodeCard";
 import EmailSignup from "@/components/sections/EmailSignup";
 import { getPage, getEpisodes } from "@/lib/content";
+import StoryblokPublishedStory, { getPublishedStory } from "@/components/storyblok/StoryblokPublishedStory";
 
 export const metadata: Metadata = {
   title: "The Europe Summer Series",
   description: "Eleven destinations across six countries in ninety-four days.",
 };
 
-export default function EuropePage() {
+export default async function EuropePage() {
+  const story = await getPublishedStory("europe");
+  if (story) return <StoryblokPublishedStory story={story} />;
+
   const p = getPage("europe");
   const episodes = getEpisodes();
 
